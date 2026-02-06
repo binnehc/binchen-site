@@ -57,8 +57,6 @@ const projectGroups: ProjectGroup[] = [
         ],
         href: "/projects/reconciliation",
       },
-
-      // ✅ rewritten to bridge into ML fundamentals
       {
         title: "Fraud Scoring Data Reliability & Monitoring (ML Pipeline)",
         org: "Financial Services",
@@ -73,7 +71,6 @@ const projectGroups: ProjectGroup[] = [
       },
     ],
   },
-
   {
     heading: "Machine learning fundamentals",
     subheading:
@@ -136,7 +133,9 @@ function ProjectCard({ p }: { p: Project }) {
       </ul>
 
       {p.href ? (
-        <p className="mt-4 text-sm font-medium text-zinc-900">View case study →</p>
+        <p className="mt-4 text-sm font-medium text-zinc-900">
+          View case study →
+        </p>
       ) : null}
     </>
   );
@@ -157,23 +156,32 @@ function ProjectCard({ p }: { p: Project }) {
 
 export default function ProjectsPage() {
   return (
-    <main className="mx-auto w-full max-w-3xl px-5 py-12">
+    <main className="mx-auto w-full max-w-5xl px-5 py-12">
       <h1 className="text-3xl font-semibold tracking-tight">Projects</h1>
 
-      <div className="mt-10 space-y-14">
+      {/* Two-column layout with independent scroll */}
+      <div className="mt-10 grid grid-cols-1 gap-10 md:grid-cols-2">
         {projectGroups.map((g) => (
-          <section key={g.heading}>
-            <div className="mb-6">
-              <h2 className="text-xl font-semibold tracking-tight">{g.heading}</h2>
+          <section key={g.heading} className="flex max-h-[70vh] flex-col">
+            {/* Header */}
+            <div className="mb-6 sticky top-0 z-10 bg-zinc-50 pb-4">
+              <h2 className="text-xl font-semibold tracking-tight">
+                {g.heading}
+              </h2>
               {g.subheading ? (
-                <p className="mt-2 text-base leading-7 text-zinc-600">{g.subheading}</p>
+                <p className="mt-2 text-base leading-7 text-zinc-600">
+                  {g.subheading}
+                </p>
               ) : null}
             </div>
 
-            <div className="grid gap-4">
-              {g.items.map((p) => (
-                <ProjectCard key={p.title} p={p} />
-              ))}
+            {/* Scrollable list */}
+            <div className="flex-1 overflow-y-auto pr-2">
+              <div className="grid gap-4">
+                {g.items.map((p) => (
+                  <ProjectCard key={p.title} p={p} />
+                ))}
+              </div>
             </div>
           </section>
         ))}
