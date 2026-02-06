@@ -164,7 +164,7 @@ export default function ProjectsPage() {
         {projectGroups.map((g) => (
           <section key={g.heading} className="flex max-h-[70vh] flex-col">
             {/* Header */}
-            <div className="mb-6 sticky top-0 z-10 bg-zinc-50 pb-4">
+            <div className="mb-6 sticky top-0 z-10 bg-white pb-4">
               <h2 className="text-xl font-semibold tracking-tight">
                 {g.heading}
               </h2>
