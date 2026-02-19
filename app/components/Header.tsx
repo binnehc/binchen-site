@@ -15,7 +15,6 @@ export default function Header() {
         {/* Left: name mark */}
         <Link href="/" className="flex flex-col leading-tight">
           <span className="text-sm font-semibold text-zinc-900">Bin Chen</span>
-          <span className="text-xs text-zinc-500">FSO Technology Consulting</span>
         </Link>
 
         {/* Right: nav */}
