@@ -1,85 +1,181 @@
+// app/projects/page.tsx
 import Link from "next/link";
 
-export default function RegressionDiagnosticsCaseStudy() {
-  return (
-    <main className="mx-auto w-full max-w-3xl px-5 py-12">
-      <Link href="/projects" className="text-sm text-zinc-600 hover:text-zinc-900">
-        ← Back to Projects
-      </Link>
+type Project = {
+  title: string;
+  org: string;
+  bullets: string[];
+  tags: string[];
+  href?: string;
+};
 
-      <p className="mt-6 text-sm text-zinc-500">Case study</p>
-      <h1 className="mt-2 text-3xl font-semibold tracking-tight">
-        Diagnosing Regression Under Noise & Limited Data
+type ProjectGroup = {
+  heading: string;
+  subheading?: string;
+  items: Project[];
+};
+
+const projectGroups: ProjectGroup[] = [
+  {
+    heading: "Data Engineering & Pipelines",
+    subheading:
+      "Building data pipelines and systems to process, transform, and reconcile large-scale datasets.",
+    items: [
+      {
+        title: "Distributed Data Reconciliation Pipeline",
+        org: "Financial Services",
+        tags: ["Data Pipeline", "Reconciliation", "Scalability"],
+        href: "/projects/reconciliation",
+        bullets: [
+          "Designed a pipeline to match and reconcile multi-million row datasets across systems.",
+          "Standardized identifiers and transformation logic to improve matching accuracy.",
+          "Built exception tracking workflows to surface discrepancies for downstream resolution.",
+        ],
+      },
+      {
+        title: "Fraud Detection ML Pipeline",
+        org: "Financial Services",
+        tags: ["ML Pipeline", "Feature Engineering", "Production"],
+        href: "/projects/fraud",
+        bullets: [
+          "Developed an end-to-end ML pipeline from data ingestion to model output.",
+          "Engineered features and validation checks to improve model reliability.",
+          "Integrated monitoring to track model performance and data drift.",
+        ],
+      },
+    ],
+  },
+  {
+    heading: "Data Quality & Reliability",
+    subheading:
+      "Ensuring data accuracy, consistency, and trust through validation frameworks and monitoring.",
+    items: [
+      {
+        title: "Data Quality Monitoring & Profiling System",
+        org: "Financial Reporting",
+        tags: ["Data Quality", "Profiling", "Monitoring"],
+        href: "/projects/data-governance",
+        bullets: [
+          "Profiled 50+ datasets to identify null rates, duplicates, and schema inconsistencies.",
+          "Designed reusable validation rules for data quality checks across pipelines.",
+          "Generated summary metrics to track data quality over time.",
+        ],
+      },
+      {
+        title: "Automated Data Validation Framework",
+        org: "Financial Services",
+        tags: ["Testing", "Validation", "Automation"],
+        href: "/projects/data-testing",
+        bullets: [
+          "Built automated validation checks to ensure data consistency across transformations.",
+          "Created reusable test cases for regression testing of data pipelines.",
+          "Reduced manual validation effort and improved release confidence.",
+        ],
+      },
+    ],
+  },
+  {
+    heading: "Analytics & Data Modeling",
+    subheading:
+      "Transforming raw data into structured, analysis-ready datasets for business insights.",
+    items: [
+      {
+        title: "Regression Modeling & Diagnostics",
+        org: "Academic / Personal",
+        tags: ["Modeling", "EDA", "Statistics"],
+        href: "/projects/regression-diagnostics",
+        bullets: [
+          "Built regression models and evaluated performance using cross-validation.",
+          "Analyzed bias-variance tradeoffs and model complexity.",
+          "Visualized model behavior using diagnostic plots.",
+        ],
+      },
+      {
+        title: "Regression Baseline Modeling",
+        org: "Academic / Personal",
+        tags: ["Baseline", "Evaluation"],
+        href: "/projects/regression-baseline",
+        bullets: [
+          "Established baseline models for comparison across multiple approaches.",
+          "Evaluated model performance using RMSE and cross-validation.",
+          "Provided interpretable insights into feature relationships.",
+        ],
+      },
+    ],
+  },
+];
+export default function ProjectsPage() {
+  return (
+    <main className="mx-auto w-full max-w-5xl px-5 py-14">
+      <h1 className="text-3xl font-semibold tracking-tight text-zinc-900">
+        Projects
       </h1>
 
-      <p className="mt-4 text-zinc-600 leading-7">
-        Used controlled synthetic experiments to understand how noise and sample size affect metric stability,
-        coefficient variance, and confidence in results.
+      <p className="mt-4 max-w-2xl text-zinc-600 leading-7">
+        A selection of work across data engineering, data quality, and machine
+        learning systems. Focused on building reliable data pipelines and
+        turning complex datasets into clear, actionable insights.
       </p>
 
-      <section className="mt-10 space-y-8">
-        <div>
-          <h2 className="text-xl font-semibold">Context</h2>
-          <p className="mt-3 text-zinc-600 leading-7">
-            This case study uses synthetic regression data to explore how data properties—specifically noise
-            and sample size—shape model performance. Synthetic setups are valuable because the “true” relationship
-            is known, enabling clearer reasoning about error and variability.
-          </p>
-        </div>
+      <div className="mt-10 space-y-14">
+        {projectGroups.map((group) => (
+          <section key={group.heading}>
+            <h2 className="text-xl font-semibold text-zinc-900">
+              {group.heading}
+            </h2>
 
-        <div>
-          <h2 className="text-xl font-semibold">Why this matters</h2>
-          <p className="mt-3 text-zinc-600 leading-7">
-            In real-world ML, weak results often reflect data constraints rather than bad algorithms.
-            Understanding how uncertainty shows up in metrics helps teams set expectations, avoid overfitting,
-            and decide when to invest in better data versus more complex models.
-          </p>
-        </div>
+            {group.subheading && (
+              <p className="mt-2 text-sm text-zinc-500 max-w-2xl">
+                {group.subheading}
+              </p>
+            )}
 
-        <div>
-          <h2 className="text-xl font-semibold">Approach</h2>
-          <ul className="mt-3 space-y-2 text-zinc-700">
-            <li className="flex gap-2">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-400" />
-              <span>Generated regression data with controlled noise and known parameters.</span>
-            </li>
-            <li className="flex gap-2">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-400" />
-              <span>Fit linear regression as a diagnostic tool to observe stability across conditions.</span>
-            </li>
-            <li className="flex gap-2">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-400" />
-              <span>Compared metrics and coefficient behavior as noise increased or sample size decreased.</span>
-            </li>
-          </ul>
-        </div>
+            <div className="mt-6 grid gap-6">
+              {group.items.map((project) => (
+                <div
+                  key={project.title}
+                  className="rounded-2xl border border-zinc-200 p-5 hover:shadow-sm transition"
+                >
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-base font-medium text-zinc-900">
+                      {project.title}
+                    </h3>
+                    <span className="text-xs text-zinc-500">
+                      {project.org}
+                    </span>
+                  </div>
 
-        <div>
-          <h2 className="text-xl font-semibold">Insights</h2>
-          <p className="mt-3 text-zinc-600 leading-7">
-            As noise increases, error metrics worsen and R² can drop even when the model form is correct.
-            With limited data, coefficient estimates and metrics become more volatile, which can lead to
-            overconfident conclusions if evaluation is treated as a single fixed number.
-          </p>
-        </div>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-xs px-2 py-1 rounded-full bg-zinc-100 text-zinc-600"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
 
-        <div>
-          <h2 className="text-xl font-semibold">Tradeoffs and limitations</h2>
-          <p className="mt-3 text-zinc-600 leading-7">
-            Synthetic data provides controlled clarity but lacks real-world issues like missingness, feature
-            interactions, and measurement bias. The value here is building intuition that transfers to applied
-            evaluation work.
-          </p>
-        </div>
+                  <ul className="mt-4 space-y-2 text-sm text-zinc-600">
+                    {project.bullets.map((b, i) => (
+                      <li key={i}>• {b}</li>
+                    ))}
+                  </ul>
 
-        <div>
-          <h2 className="text-xl font-semibold">Key takeaways</h2>
-          <p className="mt-3 text-zinc-600 leading-7">
-            Performance metrics are only meaningful in context. Noise and sample size shape what “good” looks like,
-            and stable evaluation practices are as important as model choice.
-          </p>
-        </div>
-      </section>
+                  {project.href && (
+                    <Link
+                      href={project.href}
+                      className="mt-4 inline-block text-sm text-zinc-900 hover:underline"
+                    >
+                      View details →
+                    </Link>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
     </main>
   );
 }
