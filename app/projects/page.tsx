@@ -17,171 +17,161 @@ type ProjectGroup = {
 
 const projectGroups: ProjectGroup[] = [
   {
-    heading: "Professional case studies",
+    heading: "Data Engineering & Pipelines",
     subheading:
-      "Case studies from building and operating data pipelines for financial reporting, reconciliation, and data quality at scale.",
+      "Building data pipelines and systems to process, transform, and reconcile large-scale datasets.",
     items: [
       {
-        title: "Data Governance & Data Profiling for Financial Reporting",
+        title: "Distributed Data Reconciliation Pipeline",
         org: "Financial Services",
-        tags: ["Data Profiling", "EDA", "Data Governance", "Stakeholder Reporting"],
-        bullets: [
-          "Profiled 50+ financial datasets to quantify null rates, duplicates, schema drift, and data completeness.",
-          "Built exploratory analysis and summary reports to expose data quality issues to business and analytics teams.",
-          "Standardized metric definitions and dataset documentation to align reporting across teams.",
-          "Created dashboards used in sprint and leadership reviews to track data readiness and risks.",
-        ],
-        href: "/projects/data-governance",
-      },
-      {
-        title: "Data Testing & Production Defect Validation",
-        org: "Financial Services",
-        tags: ["Data Testing", "Defect Validation", "QA Process"],
-        bullets: [
-          "Converted real defect tickets into data validation tests to verify fixes and prevent regressions.",
-          "Built before-and-after dataset comparisons to confirm pipeline changes behaved as expected.",
-          "Validated downstream tables impacted by upstream fixes to ensure reporting accuracy.",
-          "Produced validation reports used by engineering and QA teams before production release.",
-        ],
-        href: "/projects/data-testing",
-      },
-      {
-        title: "Large-Scale Data Reconciliation",
-        org: "Financial Services",
-        tags: ["Reconciliation", "Power Query", "Data Matching", "Data Quality", "Data Pipeline"],
-        bullets: [
-          "Designed a reconciliation workflow to normalize and match 50+ multi-million-row datasets.",
-          "Applied deterministic matching rules and exception handling to achieve ~95% matching accuracy.",
-          "Tracked 200+ reconciliation items in a centralized control sheet for operational visibility.",
-          "Generated stakeholder reports that increased reconciliation completion by ~10% and reduced errors by ~30%.",
-        ],
+        tags: ["Data Pipeline", "Reconciliation", "Scalability"],
         href: "/projects/reconciliation",
+        bullets: [
+          "Designed a pipeline to match and reconcile multi-million row datasets across systems.",
+          "Standardized identifiers and transformation logic to improve matching accuracy.",
+          "Built exception tracking workflows to surface discrepancies for downstream resolution.",
+        ],
       },
       {
-        title: "Fraud Scoring Data Reliability & Monitoring (ML Pipeline)",
+        title: "Fraud Detection ML Pipeline",
         org: "Financial Services",
-        tags: ["Data Reliability", "ML Systems", "Monitoring", "Alerts", "SQL", "Python"],
-        bullets: [
-          "Built SQL/Python validations to ensure fraud signals and model inputs met freshness, completeness, and schema expectations.",
-          "Detected missing, delayed, and anomalous records before they impacted scoring and downstream decisions.",
-          "Implemented production alerts and lightweight runbooks to reduce time-to-detection for data and pipeline failures.",
-          "Maintained tracking and reporting to support weekly risk/ops reviews and prioritize fixes.",
-        ],
+        tags: ["ML Pipeline", "Feature Engineering", "Production"],
         href: "/projects/fraud",
+        bullets: [
+          "Developed an end-to-end ML pipeline from data ingestion to model output.",
+          "Engineered features and validation checks to improve model reliability.",
+          "Integrated monitoring to track model performance and data drift.",
+        ],
       },
     ],
   },
   {
-    heading: "Machine learning fundamentals",
+    heading: "Data Quality & Reliability",
     subheading:
-      "Selected studies focused on building baselines, interpreting error, and developing good evaluation instincts.",
+      "Ensuring data accuracy, consistency, and trust through validation frameworks and monitoring.",
     items: [
       {
-        title: "Interpretable Regression Baseline for Compensation Prediction",
-        org: "Coursework",
-        tags: ["Regression", "Baseline Modeling", "Evaluation", "Interpretability"],
+        title: "Data Quality Monitoring & Profiling System",
+        org: "Financial Reporting",
+        tags: ["Data Quality", "Profiling", "Monitoring"],
+        href: "/projects/data-governance",
         bullets: [
-          "Established a clean end-to-end workflow from data understanding to model evaluation.",
-          "Used multiple metrics (e.g., MAE/MSE/R²) to interpret performance from different angles.",
-          "Focused on transparent assumptions and stakeholder-friendly explanations of limitations.",
-          "Documented clear next-step improvements (features, validation strategy, monitoring) for production readiness.",
+          "Profiled 50+ datasets to identify null rates, duplicates, and schema inconsistencies.",
+          "Designed reusable validation rules for data quality checks across pipelines.",
+          "Generated summary metrics to track data quality over time.",
         ],
-        href: "/projects/regression-baseline",
       },
       {
-        title: "Diagnosing Regression Under Noise & Limited Data",
-        org: "Coursework",
-        tags: ["Regression", "Bias–Variance", "Error Analysis", "Model Diagnostics"],
+        title: "Automated Data Validation Framework",
+        org: "Financial Services",
+        tags: ["Testing", "Validation", "Automation"],
+        href: "/projects/data-testing",
         bullets: [
-          "Used controlled synthetic experiments to understand how noise inflates error and destabilizes evaluation.",
-          "Observed how small sample sizes increase coefficient variance and metric volatility across runs.",
-          "Interpreted metrics in context rather than treating single scores as absolute truth.",
-          "Translated findings into practical guidance for evaluation and expectation-setting.",
+          "Built automated validation checks to ensure data consistency across transformations.",
+          "Created reusable test cases for regression testing of data pipelines.",
+          "Reduced manual validation effort and improved release confidence.",
         ],
+      },
+    ],
+  },
+  {
+    heading: "Analytics & Data Modeling",
+    subheading:
+      "Transforming raw data into structured, analysis-ready datasets for business insights.",
+    items: [
+      {
+        title: "Regression Modeling & Diagnostics",
+        org: "Academic / Personal",
+        tags: ["Modeling", "EDA", "Statistics"],
         href: "/projects/regression-diagnostics",
+        bullets: [
+          "Built regression models and evaluated performance using cross-validation.",
+          "Analyzed bias-variance tradeoffs and model complexity.",
+          "Visualized model behavior using diagnostic plots.",
+        ],
+      },
+      {
+        title: "Regression Baseline Modeling",
+        org: "Academic / Personal",
+        tags: ["Baseline", "Evaluation"],
+        href: "/projects/regression-baseline",
+        bullets: [
+          "Established baseline models for comparison across multiple approaches.",
+          "Evaluated model performance using RMSE and cross-validation.",
+          "Provided interpretable insights into feature relationships.",
+        ],
       },
     ],
   },
 ];
-
-function ProjectCard({ p }: { p: Project }) {
-  const content = (
-    <>
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h3 className="text-lg font-semibold">{p.title}</h3>
-        <p className="text-sm text-zinc-500">{p.org}</p>
-      </div>
-
-      <div className="mt-3 flex flex-wrap gap-2">
-        {p.tags.map((t) => (
-          <span
-            key={t}
-            className="rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs text-zinc-600"
-          >
-            {t}
-          </span>
-        ))}
-      </div>
-
-      <ul className="mt-4 space-y-2 text-sm leading-6 text-zinc-700">
-        {p.bullets.map((b) => (
-          <li key={b} className="flex gap-2">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-400" />
-            <span>{b}</span>
-          </li>
-        ))}
-      </ul>
-
-      {p.href ? (
-        <p className="mt-4 text-sm font-medium text-zinc-900">
-          View case study →
-        </p>
-      ) : null}
-    </>
-  );
-
-  const className =
-    "block rounded-2xl border border-zinc-200 bg-white p-6 hover:bg-zinc-50";
-
-  if (p.href) {
-    return (
-      <Link href={p.href} className={className}>
-        {content}
-      </Link>
-    );
-  }
-
-  return <div className={className}>{content}</div>;
-}
-
 export default function ProjectsPage() {
   return (
-    <main className="mx-auto w-full max-w-5xl px-5 py-12">
-      <h1 className="text-3xl font-semibold tracking-tight">Projects</h1>
+    <main className="mx-auto w-full max-w-5xl px-5 py-14">
+      <h1 className="text-3xl font-semibold tracking-tight text-zinc-900">
+        Projects
+      </h1>
 
-      {/* Two-column layout with independent scroll */}
-      <div className="mt-10 grid grid-cols-1 gap-10 md:grid-cols-2">
-        {projectGroups.map((g) => (
-          <section key={g.heading} className="flex max-h-[70vh] flex-col">
-            {/* Header */}
-            <div className="mb-6 sticky top-0 z-10 bg-white pb-4">
-              <h2 className="text-xl font-semibold tracking-tight">
-                {g.heading}
-              </h2>
-              {g.subheading ? (
-                <p className="mt-2 text-base leading-7 text-zinc-600">
-                  {g.subheading}
-                </p>
-              ) : null}
-            </div>
+      <p className="mt-4 max-w-2xl text-zinc-600 leading-7">
+        A selection of work across data engineering, data quality, and machine
+        learning systems. Focused on building reliable data pipelines and
+        turning complex datasets into clear, actionable insights.
+      </p>
 
-            {/* Scrollable list */}
-            <div className="flex-1 overflow-y-auto pr-2">
-              <div className="grid gap-4">
-                {g.items.map((p) => (
-                  <ProjectCard key={p.title} p={p} />
-                ))}
-              </div>
+      <div className="mt-10 space-y-14">
+        {projectGroups.map((group) => (
+          <section key={group.heading}>
+            <h2 className="text-xl font-semibold text-zinc-900">
+              {group.heading}
+            </h2>
+
+            {group.subheading && (
+              <p className="mt-2 text-sm text-zinc-500 max-w-2xl">
+                {group.subheading}
+              </p>
+            )}
+
+            <div className="mt-6 grid gap-6">
+              {group.items.map((project) => (
+                <div
+                  key={project.title}
+                  className="rounded-2xl border border-zinc-200 p-5 hover:shadow-sm transition"
+                >
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-base font-medium text-zinc-900">
+                      {project.title}
+                    </h3>
+                    <span className="text-xs text-zinc-500">
+                      {project.org}
+                    </span>
+                  </div>
+
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-xs px-2 py-1 rounded-full bg-zinc-100 text-zinc-600"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <ul className="mt-4 space-y-2 text-sm text-zinc-600">
+                    {project.bullets.map((b, i) => (
+                      <li key={i}>• {b}</li>
+                    ))}
+                  </ul>
+
+                  {project.href && (
+                    <Link
+                      href={project.href}
+                      className="mt-4 inline-block text-sm text-zinc-900 hover:underline"
+                    >
+                      View details →
+                    </Link>
+                  )}
+                </div>
+              ))}
             </div>
           </section>
         ))}
